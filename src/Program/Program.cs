@@ -26,9 +26,15 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            AllInOnePrinter printer = new AllInOnePrinter();
-            printer.PrintRecipe(recipe, Destination.Console);
-            printer.PrintRecipe(recipe, Destination.File);
+            // Utilizo el principio de sustitucion de Liskov y 
+            // el patron Polimorfismo
+            // el comportamiento de ambos tipos es el esperado
+            // ConsolePrinter y FilePrinter por eso cumple el principio de sustitucion
+            // Ademas es una solucion polimorfica
+            IPrinter printer = new ConsolePrinter();
+            printer.PrintRecipe(recipe);
+            printer = new FilePrinter();
+            printer.PrintRecipe(recipe);
         }
 
         private static void PopulateCatalogs()
